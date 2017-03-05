@@ -27,11 +27,21 @@ export const ToDoList = React.createClass({
     return formatDate
   },
 
+  _testDate: function(dateStr){
+    if(dateStr === 'Invalid date'){
+      return ''
+    }else{
+      return dateStr
+    }
+  },
+
   _handleSubmit: function(evt){
     evt.preventDefault()
+    let isADate = this._convertDate(this.refs.dateInput.value);
+    console.log(isADate)
     let userTask = {
       task: this.refs.taskInput.value,
-      date: this._convertDate(this.refs.dateInput.value),
+      date: this._testDate(isADate),
       critical: this.refs.isCritical.checked,
     }
     let copyOfItems = this.state.tasksToComplete.map(function(copy){return copy})
@@ -45,7 +55,6 @@ export const ToDoList = React.createClass({
   },
 
  render: function (){
-   console.log(this.state.tasksToComplete)
    return(
    <div className="container">
       <h1>Todo List</h1>
